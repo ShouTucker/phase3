@@ -7,6 +7,13 @@ var tagSchema= mongoose.Schema({
     }
 })
 
+var UsersSchema = mongoose.Schema({
+    username: {
+        type: [String],
+        index:true
+    }
+});
+
 var PostSchema = mongoose.Schema({
     
     title: {
@@ -29,10 +36,16 @@ var PostSchema = mongoose.Schema({
     tag: [tagSchema],
     
      Privacy: {
-    
+
         type:String,
         default:false
-     }
+
+     },
+    
+    Users:{
+        type: [UsersSchema],
+        index:true
+    }
 
 
 })

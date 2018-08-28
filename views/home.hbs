@@ -68,7 +68,7 @@
                     {{#if image}}
                     <div class="card card-body mb-3">    
                         <a href="/view/{{image}}"><h2>{{title}}</h2></a>
-                        <h6>by {{username}}</h6>
+                        <a href="/profile/{{username}}"><h6>@{{username}}</h6></a>
                         <img src="image/{{image}}" alt="">
                         <h4>Tags:</h4>
                         {{#each tag}}

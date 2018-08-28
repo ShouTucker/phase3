@@ -191,8 +191,8 @@ app.get('/image/:filename',(req,res)=>{
 });
 
 app.get('/view/:filename',function(req,res){
-    gfs.files.findOne({filename:req.params.filename},(err,files)=>{
-        console.log(req.params.filename);
+    gfs.files.findOne({image:req.params.filename},(err,files)=>{
+        console.log(files);
         res.render('view',{files:files});
     });
 });
@@ -245,12 +245,12 @@ app.get('/search',(req, res)=>{
                   file.isImage= false;
               }
           });
-          res.render('home',{files:files});
+          res.render('search',{files:files});
         }
     })   
 });
 
-app.get('/view/search',(req, res)=>{
+/*app.get('/view/search',(req, res)=>{
     var query = {"tag.name": req.query.searchbar}
     console.log("bar "+req.query.searchbar);
     gfs.files.find(query).toArray((err,files)=>{
@@ -292,7 +292,21 @@ app.get('/profile/search',(req, res)=>{
           res.render('profile',{files:files});
         }
     })   
+});*/
+
+app.get('/profile/:filename', function(req,res) {
+    
+    gfs.files.find({username:req.params.filename}).toArray((err,files)=>{
+       if(!files || files.length===0){
+            res.render('profile',{files:false})
+          }else{
+              res.render('visit',{files:files,username:res.locals.user.username});
+          }
+   }); 
+    
 });
+
+
 function ensureAuthenticated(req,res,next){
     if(req.isAuthenticated()){
         return next();
